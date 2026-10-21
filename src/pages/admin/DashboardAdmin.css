@@ -1,0 +1,1076 @@
+/* ========================================
+   SIPEMA - DASHBOARD ADMIN
+   ======================================== */
+
+.notula-layout {
+  --sipema-purple: #6d28d9;
+  --sipema-purple-dark: #4c1d95;
+  --sipema-deep-bg: #1e1430;
+  --sipema-lavender-bg: #f4f1fe;
+  --sipema-border: #eae5f2;
+  min-height: 100vh;
+  display: flex;
+  background: var(--sipema-lavender-bg);
+  color: #2b1d40;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: 13px;
+}
+
+.notula-layout * {
+  box-sizing: border-box;
+}
+
+/* Sidebar */
+
+.notula-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 190px;
+  min-width: 190px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 14px 18px;
+  color: #fff;
+  background: #1e1430;
+  transform: translateX(-100%);
+  transition: transform 200ms ease;
+  z-index: 40;
+}
+
+.notula-sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 20, 48, 0.4);
+  z-index: 30;
+  animation: fadeIn 150ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.notula-brand {
+  padding: 0 6px 32px;
+}
+
+.notula-brand .brand-logo {
+  justify-content: flex-start;
+  gap: 0;
+  color: #FFFFFF;
+  margin-bottom: 0;
+}
+
+.notula-brand .brand-logo svg {
+  width: 42px;
+  height: 42px;
+}
+
+.notula-brand .brand-logo span {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.notula-brand .brand-logo .logo-s {
+  display: none;
+}
+
+.notula-menu-label {
+  padding: 0 12px;
+  margin: 0 0 13px;
+  color: #9f90b6;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 1.4px;
+}
+
+.notula-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.notula-nav-item {
+  min-height: 46px;
+  width: 100%;
+  padding: 0 13px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  background: transparent;
+  color: #c9bfd8;
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.notula-nav-item:hover {
+  background: #ffffff0c;
+  color: #fff;
+}
+
+.notula-nav-item.selected {
+  background: #6d28d9;
+  border-color: #a78bfa35;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.notula-nav-item.selected .notula-nav-icon {
+  color: #ffffff;
+}
+
+.notula-nav-item:not(.selected) .notula-nav-icon {
+  color: #c9bfd8;
+}
+
+.notula-nav-item:focus-visible,
+.notula-back-button:focus-visible,
+.notula-logout:focus-visible,
+.notula-progress-link:focus-visible,
+.notula-detail-button:focus-visible,
+.notula-view-all:focus-visible {
+  outline: 2px solid #6d28d9;
+  outline-offset: 2px;
+}
+
+.notula-nav-item .notula-nav-icon svg {
+  transition: color 0.2s;
+}
+
+.notula-nav-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c9bfd8;
+  line-height: 1;
+}
+
+.notula-nav-icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.notula-active-mark {
+  width: 3px;
+  height: 21px;
+  position: absolute;
+  right: -1px;
+  border-radius: 5px 0 0 5px;
+  background: #d8c6ff;
+}
+
+.notula-sidebar-footer {
+  margin-top: auto;
+  padding: 16px 8px 0;
+  border-top: 1px solid #ffffff18;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.online-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #36d399;
+  box-shadow: 0 0 0 3px #36d3991c;
+}
+
+.notula-sidebar-footer strong {
+  display: block;
+  color: #f4efff;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* Main Topbar */
+
+.notula-main {
+  flex: 1;
+  min-width: 0;
+  margin-left: 0;
+  transition: margin-left 200ms ease;
+}
+
+.sidebar-open .notula-main {
+  margin-left: 190px;
+}
+
+@media (max-width: 700px) {
+  .sidebar-open .notula-main {
+    margin-left: 0;
+  }
+}
+
+.notula-topbar {
+  height: 72px;
+  padding: 0 16px 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  background: #fff;
+  border-bottom: 1px solid #eae5f2;
+}
+
+.notula-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-toggle {
+  border: 1px solid #eae5f2;
+  background: #fff;
+  color: #2b1d40;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.sidebar-toggle:hover {
+  background: #f7f3ff;
+  border-color: #ddd3ff;
+}
+
+.sidebar-toggle:focus-visible {
+  outline: 2px solid #6d28d9;
+  outline-offset: 2px;
+}
+
+.notula-account {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.notula-account-avatar {
+  width: 37px;
+  height: 37px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #eee7ff;
+  color: #6d28d9;
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.notula-account-info strong,
+.notula-account-info span {
+  display: block;
+}
+
+.notula-account-info strong {
+  color: #392b4b;
+  font-size: 12px;
+}
+
+.notula-account-info span {
+  margin-top: 4px;
+  color: #968ca3;
+  font-size: 10px;
+}
+
+.notula-logout {
+  width: 34px;
+  height: 34px;
+  margin-left: 8px;
+  border: 1px solid #eee8f5;
+  border-radius: 10px;
+  background: #fff;
+  color: #746482;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.notula-logout:hover {
+  background: #f4edff;
+  color: #6d28d9;
+}
+
+/* Page Content */
+
+.notula-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 28px 32px 24px;
+}
+
+.notula-welcome {
+  min-height: auto;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.notula-eyebrow {
+  margin: 0 0 11px;
+  color: #8c6bc3;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 1.5px;
+}
+
+.notula-welcome h1 {
+  margin: 0;
+  color: #1e1430;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.notula-welcome > div:first-child > p:last-child {
+  margin: 8px 0 0;
+  color: #6b5f7f;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.notula-welcome-art {
+  width: 104px;
+  height: 104px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid #e8defb;
+  border-radius: 30px;
+  background: linear-gradient(145deg, #fff, #eee6ff);
+  transform: rotate(5deg);
+}
+
+.welcome-art-circle {
+  width: 63px;
+  height: 63px;
+  display: grid;
+  place-items: center;
+  border-radius: 21px;
+  background: linear-gradient(145deg, #a78bfa, #6d28d9);
+  box-shadow: 0 8px 18px #6d28d930;
+  color: #fff;
+  font-size: 32px;
+  transform: rotate(-5deg);
+}
+
+/* Statistics Cards */
+
+.notula-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.notula-stat-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #eae5f2;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(30, 20, 48, 0.02);
+  transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+}
+
+.stat-interactive {
+  cursor: pointer;
+}
+
+.stat-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(109, 40, 217, 0.08);
+  border-color: #ddd3ff;
+}
+
+.stat-interactive:active {
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 6px 16px rgba(109, 40, 217, 0.06);
+}
+
+.stat-interactive:focus-visible {
+  outline: 2px solid #6d28d9;
+  outline-offset: 2px;
+}
+
+.notula-stat-top {
+  height: 3px;
+  background: #6d28d9;
+}
+
+.notula-stat-content {
+  padding: 16px 18px 16px;
+}
+
+.notula-stat-number {
+  display: block;
+  margin-bottom: 6px;
+  color: #6d28d9;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.notula-stat-content p {
+  margin: 0;
+  color: #6b5f7f;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Bottom Panels */
+
+.notula-bottom-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(290px, 0.9fr);
+  align-items: stretch;
+  gap: 20px;
+}
+
+.notula-panel {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #eae5f2;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(30, 20, 48, 0.02);
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: fadeInUp 420ms ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fade-in-up {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .notula-progress-bar span {
+    transition: none;
+  }
+  .notula-sidebar {
+    transition: none;
+  }
+  .notula-main {
+    transition: none;
+  }
+}
+
+.notula-panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.notula-panel-heading-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notula-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #6d28d9;
+}
+
+.notula-panel-heading h2 {
+  margin: 0;
+  color: #2b1d40;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.notula-view-all {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border: 1px solid #e7dcfa;
+  border-radius: 8px;
+  background: #fff;
+  color: #6d28d9;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notula-view-all:hover {
+  background: #f1eaff;
+}
+
+.interactive-btn {
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease, transform 100ms ease;
+}
+
+.interactive-btn:active {
+  transform: scale(0.98);
+}
+
+.notula-detail-button.interactive-btn:focus-visible,
+.notula-view-all.interactive-btn:focus-visible {
+  outline: 2px solid #6d28d9;
+  outline-offset: 2px;
+}
+
+/* Meeting Cards */
+
+.notula-meeting-list {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.notula-meeting-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid #eee8f6;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.notula-date-badge {
+  width: 48px;
+  height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border-radius: 8px;
+  background: #f1eaff;
+  color: #6d28d9;
+}
+
+.notula-date-badge strong {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.notula-date-badge span {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.notula-meeting-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.notula-meeting-info h3 {
+  margin: 0 0 6px;
+  color: #2b1d40;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.notula-meeting-info p {
+  margin: 0;
+  color: #6b5f7f;
+  font-size: 11px;
+}
+
+.notula-detail-button {
+  flex-shrink: 0;
+  padding: 7px 12px;
+  border: 1px solid #e7dcfa;
+  border-radius: 8px;
+  background: #fff;
+  color: #6d28d9;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notula-detail-button:hover {
+  background: #f1eaff;
+}
+
+.notula-meeting-footer {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid #f0ebf6;
+  color: #a098aa;
+  font-size: 10px;
+}
+
+/* Follow-up Progress */
+
+.notula-total-badge {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border: 1px solid #e6dcfb;
+  border-radius: 8px;
+  background: #f4efff;
+  color: #6d28d9;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.notula-progress-summary {
+  margin: 26px 0 19px;
+  text-align: center;
+}
+
+.notula-progress-number {
+  color: #37244e;
+  font-size: 35px;
+  font-weight: 800;
+  letter-spacing: -1.2px;
+}
+
+.notula-progress-summary p {
+  margin: 7px 0 0;
+  color: #958ba1;
+  font-size: 11px;
+}
+
+.notula-progress-bar {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  display: flex;
+  border-radius: 8px;
+  background: #eeeaf3;
+}
+
+.notula-progress-bar span {
+  display: block;
+  height: 100%;
+  transition: width 600ms ease, flex 600ms ease;
+}
+
+.progress-complete {
+  width: 0%;
+  background: #22c55e;
+}
+
+.progress-process {
+  width: 0%;
+  background: #6d28d9;
+}
+
+.progress-not-started {
+  flex: 0;
+  background: #d6d3e0;
+}
+
+.notula-legend {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notula-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-clickable {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 6px 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.legend-clickable:hover {
+  background: #f7f3ff;
+}
+
+.legend-clickable:active {
+  background: #f1eaff;
+}
+
+.legend-clickable:focus-visible {
+  outline: 2px solid #6d28d9;
+  outline-offset: 2px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.legend-green {
+  background: #22c55e;
+}
+
+.legend-purple {
+  background: #6d28d9;
+}
+
+.legend-gray {
+  background: #a3a3a3;
+}
+
+.notula-legend-item p {
+  margin: 0;
+  color: #2b1d40;
+  font-size: 12px;
+}
+
+.notula-progress-link {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px 0 0;
+  display: flex;
+  justify-content: space-between;
+  border: 0;
+  border-top: 1px solid #f0ecf5;
+  background: transparent;
+  color: #7540cf;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Footer & Placeholder Pages */
+
+.notula-page-footer {
+  margin-top: 25px;
+  padding: 17px 0 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid #e8e2f0;
+  color: #a198ad;
+  font-size: 10px;
+}
+
+.notula-placeholder {
+  min-height: 390px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #eae5f2;
+  border-radius: 17px;
+  background: #fff;
+  text-align: center;
+}
+
+.placeholder-symbol {
+  width: 65px;
+  height: 65px;
+  margin-bottom: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #a78bfa, #6d28d9);
+  box-shadow: 0 8px 20px #6d28d926;
+  color: #fff;
+  font-size: 31px;
+  font-weight: 800;
+}
+
+.notula-placeholder h1 {
+  margin: 0;
+  color: #302040;
+  font-size: 25px;
+}
+
+.notula-placeholder > p:not(.notula-eyebrow) {
+  max-width: 440px;
+  margin: 12px 0 22px;
+  color: #90869e;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.notula-back-button {
+  padding: 12px 17px;
+  border: 0;
+  border-radius: 9px;
+  background: #6d28d9;
+  color: white;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.notula-back-button:hover {
+  background: #5b21b6;
+}
+
+/* Responsive Layout */
+
+@media (max-width: 1200px) {
+  .notula-content {
+    padding: 24px 22px;
+  }
+
+  .notula-topbar {
+    padding: 0 22px;
+  }
+
+  .notula-sidebar {
+    width: 190px;
+    min-width: 190px;
+  }
+
+  .notula-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .notula-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .notula-sidebar {
+    width: 70px;
+    min-width: 70px;
+    padding: 18px 8px;
+  }
+
+  .notula-brand {
+    justify-content: center;
+    padding: 0 0 24px;
+  }
+
+  .notula-logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .notula-brand > div:last-child,
+  .notula-menu-label,
+  .notula-nav-item > span:nth-child(2),
+  .notula-active-mark,
+  .notula-sidebar-footer > div {
+    display: none;
+  }
+
+  .notula-nav-item {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .notula-nav-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .notula-nav-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .notula-sidebar-footer {
+    justify-content: center;
+    padding: 16px 0 0;
+  }
+
+  .notula-topbar {
+    height: 65px;
+    padding: 0 12px;
+  }
+
+  .notula-account {
+    gap: 7px;
+  }
+
+  .notula-account-info {
+    display: none;
+  }
+
+  .notula-logout {
+    margin-left: 0;
+  }
+
+  .notula-content {
+    padding: 20px 16px;
+  }
+
+  .notula-welcome {
+    min-height: auto;
+    margin-bottom: 22px;
+  }
+
+  .notula-welcome h1 {
+    font-size: 23px;
+  }
+
+  .notula-welcome-art {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+  }
+
+  .welcome-art-circle {
+    width: 37px;
+    height: 37px;
+    border-radius: 12px;
+    font-size: 21px;
+  }
+
+  .notula-stats {
+    gap: 11px;
+    margin-bottom: 18px;
+  }
+
+  .notula-stat-content {
+    padding: 14px 12px 12px;
+  }
+
+  .notula-stat-icon {
+    width: 33px;
+    height: 33px;
+    margin-bottom: 13px;
+  }
+
+  .notula-stat-number {
+    font-size: 26px;
+  }
+
+  .notula-stat-content p {
+    font-size: 10px;
+  }
+
+  .notula-stat-bottom {
+    padding: 9px 12px;
+    font-size: 9px;
+  }
+
+  .notula-panel {
+    padding: 16px 12px;
+  }
+
+  .notula-panel-heading h2 {
+    font-size: 14px;
+  }
+
+  .notula-meeting-card {
+    gap: 9px;
+    padding: 10px 8px;
+  }
+
+  .notula-date-badge {
+    width: 45px;
+    height: 55px;
+  }
+
+  .notula-date-badge strong {
+    font-size: 20px;
+  }
+
+  .notula-meeting-info h3 {
+    font-size: 11px;
+  }
+
+  .notula-meeting-info p {
+    font-size: 9px;
+  }
+
+  .notula-detail-button {
+    padding: 8px;
+    font-size: 9px;
+  }
+
+  .notula-page-footer {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 390px) {
+  .notula-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .notula-stat-content {
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    column-gap: 12px;
+  }
+
+  .notula-stat-icon {
+    grid-row: span 2;
+    margin: 0;
+  }
+
+  .notula-stat-number {
+    font-size: 23px;
+  }
+
+  .notula-stat-content p {
+    min-height: auto;
+  }
+
+  .notula-detail-button {
+    font-size: 0;
+  }
+
+  .notula-detail-button span {
+    font-size: 14px;
+  }
+
+  .notula-welcome-art {
+    display: none;
+  }
+}
