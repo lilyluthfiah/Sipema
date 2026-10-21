@@ -1,5 +1,6 @@
 import "./DashboardAdmin.css";
 import { useEffect, useRef, useState } from "react";
+import PenggunaPage from "./PenggunaPage";
 
 function CountUp({ end, duration = 900 }) {
   const [value, setValue] = useState(0);
@@ -184,7 +185,6 @@ export default function DashboardAdmin({ onLogout }) {
         <div className="notula-sidebar-footer">
           <span className="online-dot" />
           <div>
-            <strong>Sipema Workspace v1.0</strong>
           </div>
         </div>
       </aside>
@@ -340,6 +340,8 @@ export default function DashboardAdmin({ onLogout }) {
                 </article>
               </section>
             </>
+          ) : menuAktif === "Pengguna" ? (
+            <PenggunaPage />
           ) : (
             <section className="notula-placeholder">
               <div className="placeholder-symbol">N</div>
