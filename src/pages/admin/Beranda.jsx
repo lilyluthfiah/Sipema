@@ -27,7 +27,7 @@ export const meetings = [
    KOMPONEN PENDUKUNG
    ======================================== */
 
-function CountUp({ end, duration = 900 }) {
+export function CountUp({ end, duration = 900 }) {
   const [value, setValue] = useState(0);
   const startedRef = useRef(false);
 
@@ -57,7 +57,7 @@ function CountUp({ end, duration = 900 }) {
   return <>{value}</>;
 }
 
-const gayaKartu = (mounted, delay) => ({
+export const gayaKartu = (mounted, delay) => ({
   minWidth: 0,
   p: { xs: "16px 12px", md: "22px" },
   border: `1px solid ${WARNA.garis}`,
@@ -67,7 +67,7 @@ const gayaKartu = (mounted, delay) => ({
   ...(mounted ? animasiMasuk(delay) : {}),
 });
 
-const gayaKepalaKartu = {
+export const gayaKepalaKartu = {
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
@@ -75,14 +75,14 @@ const gayaKepalaKartu = {
   mb: "18px",
 };
 
-const gayaTitik = {
+export const gayaTitik = {
   width: 8,
   height: 8,
   borderRadius: "50%",
   background: WARNA.ungu,
 };
 
-const gayaTombolStatus = {
+export const gayaTombolStatus = {
   width: "100%",
   justifyContent: "flex-start",
   gap: "8px",
@@ -95,7 +95,7 @@ const gayaTombolStatus = {
 };
 
 /* ========================================
-   HALAMAN BERANDA
+   HALAMAN BERANDA ADMIN
    ======================================== */
 
 export default function Beranda({ mounted, progressWidth }) {

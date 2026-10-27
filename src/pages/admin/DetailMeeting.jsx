@@ -12,11 +12,15 @@ import { rute } from "../../router/rute";
    Membuka detail satu meeting berdasarkan :id pada URL.
    ======================================== */
 
-export default function DetailMeeting() {
+export default function DetailMeeting({
+  kembaliPath = rute.monitoringMeeting,
+  labelKembali = "Monitoring meeting",
+  meetingsData = meetings,
+}) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const meeting = meetings.find((item) => String(item.id) === String(id));
+  const meeting = meetingsData.find((item) => String(item.id) === String(id));
 
   if (!meeting) {
     return (
@@ -41,7 +45,7 @@ export default function DetailMeeting() {
           Data meeting dengan ID <strong>{id}</strong> tidak tersedia.
         </Typography>
         <Button
-          onClick={() => navigate(rute.monitoringMeeting)}
+          onClick={() => navigate(kembaliPath)}
           sx={{
             px: "17px",
             py: "12px",
@@ -53,7 +57,7 @@ export default function DetailMeeting() {
             "&:hover": { background: WARNA.unguHover },
           }}
         >
-          ← Kembali ke Monitoring meeting
+          ← Kembali ke {labelKembali}
         </Button>
       </Box>
     );
@@ -63,7 +67,7 @@ export default function DetailMeeting() {
     <>
       <Box component="header" sx={{ mb: "24px", ...animasiMasuk("0ms") }}>
         <Button
-          onClick={() => navigate(rute.monitoringMeeting)}
+          onClick={() => navigate(kembaliPath)}
           sx={{
             mb: "14px",
             p: 0,
@@ -99,36 +103,32 @@ export default function DetailMeeting() {
         <Box sx={{ display: "flex", alignItems: "center", gap: "14px", mb: "18px" }}>
           <Box
             sx={{
-              width: 56,
-              height: 56,
+              width: 54,
+              height: 60,
               flexShrink: 0,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              gap: "3px",
               borderRadius: "10px",
               background: "#f1eaff",
               color: WARNA.ungu,
             }}
           >
-            <Typography sx={{ fontSize: "20px", lineHeight: 1, fontWeight: 800 }}>{meeting.tanggal}</Typography>
-            <Typography sx={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.8px" }}>{meeting.bulan}</Typography>
+            <Typography sx={{ fontSize: "22px", lineHeight: 1, fontWeight: 800 }}>{meeting.tanggal}</Typography>
+            <Typography sx={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.8px" }}>{meeting.bulan}</Typography>
           </Box>
-          <Box sx={{ minWidth: 0 }}>
-            <Typography sx={{ m: "0 0 6px", color: WARNA.teks, fontSize: "14px", fontWeight: 700 }}>{meeting.judul}</Typography>
-            <Typography sx={{ m: 0, color: WARNA.teksRedup, fontSize: "12px" }}>
-              {meeting.waktu} di {meeting.lokasi}
+          <Box>
+            <Typography sx={{ m: 0, color: WARNA.teks, fontSize: "16px", fontWeight: 700 }}>{meeting.judul}</Typography>
+            <Typography sx={{ mt: "4px", color: WARNA.teksRedup, fontSize: "12px" }}>
+              {meeting.waktu} · {meeting.lokasi}
             </Typography>
           </Box>
         </Box>
 
-        <Box sx={{ color: WARNA.teksRedup, fontSize: "12px", lineHeight: 1.8 }}>
-          <Typography component="p" sx={{ m: "0 0 8px" }}>
-            <strong>Waktu:</strong> {meeting.waktu}
-          </Typography>
-          <Typography component="p" sx={{ m: 0 }}>
-            <strong>Lokasi:</strong> {meeting.lokasi}
+        <Box sx={{ borderTop: `1px solid ${WARNA.garis}`, pt: "16px", mt: "16px" }}>
+          <Typography sx={{ color: WARNA.teksRedup, fontSize: "12px", lineHeight: 1.8 }}>
+            Halaman detail meeting ini menampilkan informasi lengkap meeting, agenda pembahasan, dan notulen yang terkait.
           </Typography>
         </Box>
       </Box>

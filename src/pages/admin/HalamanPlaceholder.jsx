@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate, useLocation } from "react-router-dom";
 import { WARNA } from "../../theme/sipemaTheme";
-import { menuNavigasi, rute } from "../../router/rute";
+import { menuNavigasi, menuNavigasiSekretaris, rute } from "../../router/rute";
 
 /* ========================================
    HALAMAN PLACEHOLDER
@@ -11,13 +11,14 @@ import { menuNavigasi, rute } from "../../router/rute";
    memakai judul dari lokasi URL (bukan state palsu).
    ======================================== */
 
-export default function HalamanPlaceholder({ judul }) {
+export default function HalamanPlaceholder({ judul, kembaliPath = rute.beranda }) {
   const navigate = useNavigate();
   const lokasi = useLocation();
 
   const namaHalaman =
     judul ||
     menuNavigasi.find((item) => item.path === lokasi.pathname)?.nama ||
+    menuNavigasiSekretaris?.find((item) => item.path === lokasi.pathname)?.nama ||
     "Halaman";
 
   return (
@@ -62,7 +63,7 @@ export default function HalamanPlaceholder({ judul }) {
         Halaman {namaHalaman.toLowerCase()} sedang dikembangkan.
       </Typography>
       <Button
-        onClick={() => navigate(rute.beranda)}
+        onClick={() => navigate(kembaliPath)}
         sx={{
           px: "17px",
           py: "12px",
