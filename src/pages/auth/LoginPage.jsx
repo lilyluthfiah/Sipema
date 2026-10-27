@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { sipemaTheme } from "../../theme/sipemaTheme";
 import { useAuth } from "../../auth/AuthContext";
-import { rute } from "../../router/rute";
+import { rute, ruteSekretaris } from "../../router/rute";
 
 /* ========================================
    PENYIMPANAN "INGAT SAYA"
@@ -325,12 +325,30 @@ export default function LoginPage({ onLoginSuccess }) {
     if (!username.trim() || !password) {
       setPesan("Username dan password wajib diisi.");
       return;
+
+  
     }
 
-    simpanIngatSaya(username.trim(), ingatSaya);
-    login({ username: username.trim(), peran: "Admin" });
+
+    const namaBersih = username.trim();
+    const isSekretaris =
+      namaBersih.toLowerCase() === "dewi" ||
+      namaBersih.toLowerCase().includes("sekretaris");
+    const peran = isSekretaris ? "Sekretaris" : "Admin";
+
+    simpanIngatSaya(namaBersih, ingatSaya);
+    login({ username: namaBersih, peran });
     if (onLoginSuccess) onLoginSuccess();
-    navigate(rute.beranda, { replace: true });
+
+    if (isSekretaris) {
+      navigate(ruteSekretaris.beranda, { replace: true });
+    } else {
+      navigate(rute.beranda, { replace: true });
+
+    }
+
+
+
   }
 
   const gayaInput = {

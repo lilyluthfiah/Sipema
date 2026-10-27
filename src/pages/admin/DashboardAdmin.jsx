@@ -8,14 +8,14 @@ import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { sipemaTheme, WARNA } from "../../theme/sipemaTheme";
-import { menuNavigasi, rute } from "../../router/rute";
+import { menuNavigasi, rute, ruteSekretaris } from "../../router/rute";
 import { useAuth } from "../../auth/AuthContext";
 
 /* ========================================
    ICON SIDEBAR & TOPBAR
    ======================================== */
 
-function IkonBeranda() {
+export function IkonBeranda() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -24,7 +24,7 @@ function IkonBeranda() {
   );
 }
 
-function IkonPengguna() {
+export function IkonPengguna() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -35,7 +35,7 @@ function IkonPengguna() {
   );
 }
 
-function IkonHakAkses() {
+export function IkonHakAkses() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
@@ -44,7 +44,7 @@ function IkonHakAkses() {
   );
 }
 
-function IkonMeeting() {
+export function IkonMeeting() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
@@ -55,7 +55,7 @@ function IkonMeeting() {
   );
 }
 
-function IkonTindakLanjut() {
+export function IkonTindakLanjut() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
@@ -65,7 +65,7 @@ function IkonTindakLanjut() {
   );
 }
 
-function IkonLaporan() {
+export function IkonLaporan() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <line x1="18" x2="18" y1="20" y2="10" />
@@ -75,7 +75,7 @@ function IkonLaporan() {
   );
 }
 
-function IkonMenu() {
+export function IkonMenu() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <line x1="3" y1="12" x2="21" y2="12" />
@@ -85,7 +85,7 @@ function IkonMenu() {
   );
 }
 
-function IkonKeluar() {
+export function IkonKeluar() {
   return (
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -100,20 +100,23 @@ function IkonKeluar() {
    Kunci memakai `path` agar sinkron dengan NavLink.
    ======================================== */
 
-const menuIcons = {
+export const menuIcons = {
   [rute.beranda]: <IkonBeranda />,
   [rute.pengguna]: <IkonPengguna />,
   [rute.hakAkses]: <IkonHakAkses />,
   [rute.monitoringMeeting]: <IkonMeeting />,
   [rute.tindakLanjut]: <IkonTindakLanjut />,
   [rute.laporan]: <IkonLaporan />,
+  [ruteSekretaris.beranda]: <IkonBeranda />,
+  [ruteSekretaris.meeting]: <IkonMeeting />,
+  [ruteSekretaris.tindakLanjut]: <IkonTindakLanjut />,
 };
 
 /* ========================================
    SIDEBAR (Link & NavLink)
    ======================================== */
 
-function SidebarContent({ onItemClick }) {
+export function SidebarContent({ onItemClick, menu = menuNavigasi, homePath = rute.beranda }) {
   return (
     <Box
       sx={{
@@ -130,7 +133,7 @@ function SidebarContent({ onItemClick }) {
       <Box sx={{ px: { xs: 0, md: "6px" }, pb: { xs: "24px", md: "32px" }, display: "flex", justifyContent: { xs: "center", md: "flex-start" } }}>
         <Box
           component={NavLink}
-          to={rute.beranda}
+          to={homePath}
           onClick={onItemClick}
           sx={{
             display: "flex",
@@ -165,7 +168,7 @@ function SidebarContent({ onItemClick }) {
       </Typography>
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: "7px" }}>
-        {menuNavigasi.map((item) => (
+        {menu.map((item) => (
           <Button
             key={item.path}
             component={NavLink}
@@ -237,7 +240,12 @@ function SidebarContent({ onItemClick }) {
    TOPBAR
    ======================================== */
 
-function Topbar({ onToggleSidebar, onLogout }) {
+export function Topbar({ onToggleSidebar, onLogout, user }) {
+  const { pengguna } = useAuth();
+  const namaUser = user?.nama || (pengguna?.username ? (pengguna.username.charAt(0).toUpperCase() + pengguna.username.slice(1)) : "Rina");
+  const peranUser = user?.peran || (pengguna?.peran || "Administrator");
+  const inisialUser = user?.inisial || namaUser.charAt(0).toUpperCase();
+
   return (
     <Box
       sx={{
@@ -281,11 +289,11 @@ function Topbar({ onToggleSidebar, onLogout }) {
             fontWeight: 750,
           }}
         >
-          R
+          {inisialUser}
         </Box>
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
-          <Typography sx={{ color: "#392b4b", fontSize: "12px", fontWeight: 600 }}>Rina</Typography>
-          <Typography sx={{ mt: "4px", color: WARNA.teksRedupLembut, fontSize: "10px" }}>Administrator</Typography>
+          <Typography sx={{ color: "#392b4b", fontSize: "12px", fontWeight: 600 }}>{namaUser}</Typography>
+          <Typography sx={{ mt: "4px", color: WARNA.teksRedupLembut, fontSize: "10px" }}>{peranUser}</Typography>
         </Box>
         <IconButton
           onClick={onLogout}
