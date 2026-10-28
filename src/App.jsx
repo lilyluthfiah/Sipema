@@ -8,6 +8,7 @@ import Beranda from "./pages/admin/Beranda";
 import PenggunaPage from "./pages/admin/PenggunaPage";
 import HalamanPlaceholder from "./pages/admin/HalamanPlaceholder";
 import DetailMeeting from "./pages/admin/DetailMeeting";
+import HakAksesPage from "./pages/admin/HakAksesPage";
 import DashboardSekretaris from "./pages/sekretaris/DashboardSekretaris";
 import BerandaSekretaris, { meetingsSekretaris } from "./pages/sekretaris/BerandaSekretaris";
 
@@ -48,7 +49,7 @@ function App() {
             <Route index element={<Navigate to={rute.beranda} replace />} />
             <Route path="beranda" element={<Beranda />} />
             <Route path="pengguna" element={<PenggunaPage />} />
-            <Route path="hak-akses" element={<HalamanPlaceholder judul="Hak akses" />} />
+            <Route path="hak-akses" element={<HakAksesPage />} />
             <Route path="monitoring-meeting" element={<HalamanPlaceholder judul="Monitoring meeting" />} />
             <Route path="monitoring-meeting/:id" element={<DetailMeeting />} />
             <Route path="tindak-lanjut" element={<HalamanPlaceholder judul="Tindak lanjut" />} />
