@@ -20,7 +20,11 @@ export default function DetailMeeting({
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const meeting = meetingsData.find((item) => String(item.id) === String(id));
+  const meeting = meetingsData.find(
+    (item) =>
+      String(item.id) === String(id) ||
+      String(item.kode || "").toLowerCase() === String(id).toLowerCase()
+  );
 
   if (!meeting) {
     return (
@@ -42,7 +46,7 @@ export default function DetailMeeting({
           Meeting tidak ditemukan
         </Typography>
         <Typography sx={{ maxWidth: 440, mt: "12px", mb: "22px", color: "#90869e", fontSize: "12px", lineHeight: 1.8 }}>
-          Data meeting dengan ID <strong>{id}</strong> tidak tersedia.
+          Data meeting dengan ID atau kode <strong>{id}</strong> tidak tersedia.
         </Typography>
         <Button
           onClick={() => navigate(kembaliPath)}
@@ -85,7 +89,7 @@ export default function DetailMeeting({
           {meeting.judul}
         </Typography>
         <Typography sx={{ mt: "8px", color: WARNA.teksRedup, fontSize: "13px", lineHeight: 1.6 }}>
-          Detail meeting ID {meeting.id}
+          {meeting.kode ? `${meeting.kode} · ` : ""}Detail meeting {meeting.id}
         </Typography>
       </Box>
 

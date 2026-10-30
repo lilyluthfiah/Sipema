@@ -12,7 +12,10 @@ import HakAksesPage from "./pages/admin/HakAksesPage";
 import MonitoringMeetingPage from "./pages/admin/MonitoringMeetingPage";
 import TindakLanjutPage from "./pages/admin/TindakLanjutPage";
 import DashboardSekretaris from "./pages/sekretaris/DashboardSekretaris";
-import BerandaSekretaris, { meetingsSekretaris } from "./pages/sekretaris/BerandaSekretaris";
+import BerandaSekretaris from "./pages/sekretaris/BerandaSekretaris";
+import DaftarMeetingSekretaris from "./pages/sekretaris/DaftarMeetingSekretaris";
+import FormMeetingSekretaris from "./pages/sekretaris/FormMeetingSekretaris";
+import DetailMeetingSekretaris from "./pages/sekretaris/DetailMeetingSekretaris";
 
 /* ========================================
    ROUTING SIPEMA
@@ -69,20 +72,10 @@ function App() {
           >
             <Route index element={<Navigate to={ruteSekretaris.beranda} replace />} />
             <Route path="beranda" element={<BerandaSekretaris />} />
-            <Route
-              path="meeting"
-              element={<HalamanPlaceholder judul="Meeting" kembaliPath={ruteSekretaris.beranda} />}
-            />
-            <Route
-              path="meeting/:id"
-              element={
-                <DetailMeeting
-                  kembaliPath={ruteSekretaris.meeting}
-                  labelKembali="Meeting"
-                  meetingsData={meetingsSekretaris}
-                />
-              }
-            />
+            <Route path="meeting" element={<DaftarMeetingSekretaris />} />
+            <Route path="meeting/baru" element={<FormMeetingSekretaris />} />
+            <Route path="meeting/:id/ubah" element={<FormMeetingSekretaris />} />
+            <Route path="meeting/:id" element={<DetailMeetingSekretaris />} />
             <Route
               path="tindak-lanjut"
               element={<HalamanPlaceholder judul="Tindak lanjut" kembaliPath={ruteSekretaris.beranda} />}
