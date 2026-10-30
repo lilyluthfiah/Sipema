@@ -11,6 +11,7 @@ import DetailMeeting from "./pages/admin/DetailMeeting";
 import HakAksesPage from "./pages/admin/HakAksesPage";
 import MonitoringMeetingPage from "./pages/admin/MonitoringMeetingPage";
 import TindakLanjutPage from "./pages/admin/TindakLanjutPage";
+import LaporanPage from "./pages/admin/LaporanPage";
 import DashboardSekretaris from "./pages/sekretaris/DashboardSekretaris";
 import BerandaSekretaris, { meetingsSekretaris } from "./pages/sekretaris/BerandaSekretaris";
 
@@ -55,7 +56,7 @@ function App() {
             <Route path="monitoring-meeting" element={<MonitoringMeetingPage />} />
             <Route path="monitoring-meeting/:id" element={<DetailMeeting />} />
             <Route path="tindak-lanjut" element={<TindakLanjutPage />} />
-            <Route path="laporan" element={<HalamanPlaceholder judul="Laporan" />} />
+            <Route path="laporan" element={<LaporanPage />} />
           </Route>
 
           {/* RUTE SEKRETARIS */}
