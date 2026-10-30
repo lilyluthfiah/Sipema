@@ -18,6 +18,7 @@ export const ruteSekretaris = {
   root: "/sekretaris",
   beranda: "/sekretaris/beranda",
   meeting: "/sekretaris/meeting",
+  meetingBaru: "/sekretaris/meeting/baru",
   detailMeeting: "/sekretaris/meeting/:id",
   tindakLanjut: "/sekretaris/tindak-lanjut",
 };
@@ -45,4 +46,8 @@ export function detailMeetingPath(id) {
 
 export function detailMeetingSekretarisPath(id) {
   return `${ruteSekretaris.meeting}/${id}`;
+}
+
+export function ubahMeetingSekretarisPath(id) {
+  return `${ruteSekretaris.meeting}/${id}/ubah`;
 }
