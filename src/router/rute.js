@@ -21,6 +21,9 @@ export const ruteSekretaris = {
   meetingBaru: "/sekretaris/meeting/baru",
   detailMeeting: "/sekretaris/meeting/:id",
   tindakLanjut: "/sekretaris/tindak-lanjut",
+  tindakLanjutBaru: "/sekretaris/tindak-lanjut/baru",
+  detailTindakLanjut: "/sekretaris/tindak-lanjut/:id",
+  ubahTindakLanjut: "/sekretaris/tindak-lanjut/:id/ubah",
 };
 
 /* Urutan & isi menu sidebar Admin. `path` dipakai sebagai tujuan Link/NavLink. */
@@ -50,4 +53,12 @@ export function detailMeetingSekretarisPath(id) {
 
 export function ubahMeetingSekretarisPath(id) {
   return `${ruteSekretaris.meeting}/${id}/ubah`;
+}
+
+export function detailTindakLanjutSekretarisPath(id) {
+  return `${ruteSekretaris.tindakLanjut}/${id}`;
+}
+
+export function ubahTindakLanjutSekretarisPath(id) {
+  return `${ruteSekretaris.tindakLanjut}/${id}/ubah`;
 }

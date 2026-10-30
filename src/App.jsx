@@ -6,7 +6,6 @@ import LoginPage from "./pages/auth/LoginPage";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import Beranda from "./pages/admin/Beranda";
 import PenggunaPage from "./pages/admin/PenggunaPage";
-import HalamanPlaceholder from "./pages/admin/HalamanPlaceholder";
 import DetailMeeting from "./pages/admin/DetailMeeting";
 import HakAksesPage from "./pages/admin/HakAksesPage";
 import MonitoringMeetingPage from "./pages/admin/MonitoringMeetingPage";
@@ -17,6 +16,9 @@ import BerandaSekretaris from "./pages/sekretaris/BerandaSekretaris";
 import DaftarMeetingSekretaris from "./pages/sekretaris/DaftarMeetingSekretaris";
 import FormMeetingSekretaris from "./pages/sekretaris/FormMeetingSekretaris";
 import DetailMeetingSekretaris from "./pages/sekretaris/DetailMeetingSekretaris";
+import TindakLanjutSekretaris from "./pages/sekretaris/TindakLanjutSekretaris";
+import FormTindakLanjutSekretaris from "./pages/sekretaris/FormTindakLanjutSekretaris";
+import DetailTindakLanjutSekretaris from "./pages/sekretaris/DetailTindakLanjutSekretaris";
 
 /* ========================================
    ROUTING SIPEMA
@@ -34,6 +36,7 @@ import DetailMeetingSekretaris from "./pages/sekretaris/DetailMeetingSekretaris"
      - /sekretaris/meeting
      - /sekretaris/meeting/:id  (detail meeting sekretaris)
      - /sekretaris/tindak-lanjut
+     - /sekretaris/tindak-lanjut/baru
    ======================================== */
 
 function App() {
@@ -77,10 +80,10 @@ function App() {
             <Route path="meeting/baru" element={<FormMeetingSekretaris />} />
             <Route path="meeting/:id/ubah" element={<FormMeetingSekretaris />} />
             <Route path="meeting/:id" element={<DetailMeetingSekretaris />} />
-            <Route
-              path="tindak-lanjut"
-              element={<HalamanPlaceholder judul="Tindak lanjut" kembaliPath={ruteSekretaris.beranda} />}
-            />
+            <Route path="tindak-lanjut" element={<TindakLanjutSekretaris />} />
+            <Route path="tindak-lanjut/baru" element={<FormTindakLanjutSekretaris />} />
+            <Route path="tindak-lanjut/:id/ubah" element={<FormTindakLanjutSekretaris />} />
+            <Route path="tindak-lanjut/:id" element={<DetailTindakLanjutSekretaris />} />
           </Route>
 
           <Route path="*" element={<Navigate to={rute.beranda} replace />} />
