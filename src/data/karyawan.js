@@ -50,6 +50,13 @@ export function ambilMeetingKaryawan(username) {
     .sort((a, b) => `${a.tanggalISO}${a.jamMulai}`.localeCompare(`${b.tanggalISO}${b.jamMulai}`));
 }
 
+export function ambilJadwalMeetingKaryawan(username) {
+  const namaKaryawan = namaKaryawanDariUsername(username);
+  return ambilMeetingSekretaris().filter((meeting) =>
+    meeting.daftarPeserta.some((peserta) => cocokNama(peserta, namaKaryawan)),
+  );
+}
+
 export function ambilTindakLanjutKaryawan(username) {
   return TINDAK_LANJUT_KARYAWAN_AWAL.filter((item) =>
     cocokNama(item.pic, username),
