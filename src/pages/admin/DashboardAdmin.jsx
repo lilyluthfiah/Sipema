@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { sipemaTheme, WARNA } from "../../theme/sipemaTheme";
-import { menuNavigasi, rute, ruteSekretaris } from "../../router/rute";
+import { menuNavigasi, rute, ruteKaryawan, ruteSekretaris } from "../../router/rute";
 import { useAuth } from "../../auth/AuthContext";
 
 /* ========================================
@@ -110,6 +110,9 @@ export const menuIcons = {
   [ruteSekretaris.beranda]: <IkonBeranda />,
   [ruteSekretaris.meeting]: <IkonMeeting />,
   [ruteSekretaris.tindakLanjut]: <IkonTindakLanjut />,
+  [ruteKaryawan.beranda]: <IkonBeranda />,
+  [ruteKaryawan.meeting]: <IkonMeeting />,
+  [ruteKaryawan.tindakLanjut]: <IkonTindakLanjut />,
 };
 
 /* ========================================

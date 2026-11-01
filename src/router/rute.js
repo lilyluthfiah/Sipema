@@ -26,6 +26,15 @@ export const ruteSekretaris = {
   ubahTindakLanjut: "/sekretaris/tindak-lanjut/:id/ubah",
 };
 
+export const ruteKaryawan = {
+  root: "/karyawan",
+  beranda: "/karyawan/beranda",
+  meeting: "/karyawan/meeting",
+  detailMeeting: "/karyawan/meeting/:id",
+  tindakLanjut: "/karyawan/tindak-lanjut",
+  detailTindakLanjut: "/karyawan/tindak-lanjut/:id",
+};
+
 /* Urutan & isi menu sidebar Admin. `path` dipakai sebagai tujuan Link/NavLink. */
 export const menuNavigasi = [
   { nama: "Beranda", path: rute.beranda },
@@ -41,6 +50,12 @@ export const menuNavigasiSekretaris = [
   { nama: "Beranda", path: ruteSekretaris.beranda },
   { nama: "Meeting", path: ruteSekretaris.meeting },
   { nama: "Tindak lanjut", path: ruteSekretaris.tindakLanjut },
+];
+
+export const menuNavigasiKaryawan = [
+  { nama: "Beranda", path: ruteKaryawan.beranda },
+  { nama: "Jadwal meeting", path: ruteKaryawan.meeting },
+  { nama: "Tindak lanjut saya", path: ruteKaryawan.tindakLanjut },
 ];
 
 export function detailMeetingPath(id) {
@@ -61,4 +76,12 @@ export function detailTindakLanjutSekretarisPath(id) {
 
 export function ubahTindakLanjutSekretarisPath(id) {
   return `${ruteSekretaris.tindakLanjut}/${id}/ubah`;
+}
+
+export function detailMeetingKaryawanPath(id) {
+  return `${ruteKaryawan.meeting}/${id}`;
+}
+
+export function detailTindakLanjutKaryawanPath(id) {
+  return `${ruteKaryawan.tindakLanjut}/${id}`;
 }
