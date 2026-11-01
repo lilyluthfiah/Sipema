@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthContext";
 import ProtectedRoute from "./router/ProtectedRoute";
-import { rute, ruteSekretaris } from "./router/rute";
+import { rute, ruteKaryawan, ruteSekretaris } from "./router/rute";
 import LoginPage from "./pages/auth/LoginPage";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import Beranda from "./pages/admin/Beranda";
@@ -19,6 +19,8 @@ import DetailMeetingSekretaris from "./pages/sekretaris/DetailMeetingSekretaris"
 import TindakLanjutSekretaris from "./pages/sekretaris/TindakLanjutSekretaris";
 import FormTindakLanjutSekretaris from "./pages/sekretaris/FormTindakLanjutSekretaris";
 import DetailTindakLanjutSekretaris from "./pages/sekretaris/DetailTindakLanjutSekretaris";
+import DashboardKaryawan from "./pages/karyawan/DashboardKaryawan";
+import BerandaKaryawan from "./pages/karyawan/BerandaKaryawan";
 
 /* ========================================
    ROUTING SIPEMA
@@ -84,6 +86,19 @@ function App() {
             <Route path="tindak-lanjut/baru" element={<FormTindakLanjutSekretaris />} />
             <Route path="tindak-lanjut/:id/ubah" element={<FormTindakLanjutSekretaris />} />
             <Route path="tindak-lanjut/:id" element={<DetailTindakLanjutSekretaris />} />
+          </Route>
+
+          <Route
+            path={ruteKaryawan.root}
+            element={
+              <ProtectedRoute requiredRole="Karyawan">
+                <DashboardKaryawan />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate to={ruteKaryawan.beranda} replace />} />
+            <Route path="beranda" element={<BerandaKaryawan />} />
+            <Route path="*" element={<Navigate to={ruteKaryawan.beranda} replace />} />
           </Route>
 
           <Route path="*" element={<Navigate to={rute.beranda} replace />} />

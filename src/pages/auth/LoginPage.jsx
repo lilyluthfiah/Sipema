@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { sipemaTheme } from "../../theme/sipemaTheme";
 import { useAuth } from "../../auth/AuthContext";
-import { rute, ruteSekretaris } from "../../router/rute";
+import { rute, ruteKaryawan, ruteSekretaris } from "../../router/rute";
 
 /* ========================================
    PENYIMPANAN "INGAT SAYA"
@@ -334,7 +334,14 @@ export default function LoginPage({ onLoginSuccess }) {
     const isSekretaris =
       namaBersih.toLowerCase() === "dewi" ||
       namaBersih.toLowerCase().includes("sekretaris");
-    const peran = isSekretaris ? "Sekretaris" : "Admin";
+    const isKaryawan =
+      namaBersih.toLowerCase().includes("karyawan") ||
+      namaBersih.toLowerCase().startsWith("budi");
+    const peran = isSekretaris
+      ? "Sekretaris"
+      : isKaryawan
+        ? "Karyawan"
+        : "Admin";
 
     simpanIngatSaya(namaBersih, ingatSaya);
     login({ username: namaBersih, peran });
@@ -342,6 +349,8 @@ export default function LoginPage({ onLoginSuccess }) {
 
     if (isSekretaris) {
       navigate(ruteSekretaris.beranda, { replace: true });
+    } else if (isKaryawan) {
+      navigate(ruteKaryawan.beranda, { replace: true });
     } else {
       navigate(rute.beranda, { replace: true });
 
