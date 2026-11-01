@@ -673,12 +673,14 @@ function FormPengguna({
   opsiPeran,
   adminSedangDiedit,
   pesanError,
+  idEdit,
 }) {
   return (
     <>
       <Box component="header" sx={gayaHeader(mounted)}>
         <Box sx={{ minWidth: 0 }}>
           <Button disableElevation onClick={onKembali} sx={gayaTombolKembali}>
+            ← Kembali
           </Button>
           <h1>Form pengguna</h1>
         </Box>
@@ -713,6 +715,7 @@ function FormPengguna({
                 placeholder="Budi Santoso"
                 autoComplete="off"
                 fullWidth
+                required
               />
             </Field>
 
@@ -725,6 +728,7 @@ function FormPengguna({
                 placeholder="Teknologi Informasi"
                 autoComplete="off"
                 fullWidth
+                required
                 slotProps={{ htmlInput: { list: "pengguna-daftar-divisi" } }}
               />
               <datalist id="pengguna-daftar-divisi">
@@ -743,21 +747,24 @@ function FormPengguna({
                 placeholder="budi.santoso"
                 autoComplete="off"
                 fullWidth
+                required
               />
             </Field>
 
-            <Field htmlFor="pengguna-sandi" label="Kata sandi">
+            <Field htmlFor="pengguna-sandi" label={idEdit === null ? "Kata sandi" : "Kata sandi"}>
               <TextField
                 id="pengguna-sandi"
                 size="small"
                 type="password"
                 value={form.sandi}
                 onChange={ubahField("sandi")}
-                placeholder="Isi kata sandi"
+                placeholder={idEdit === null ? "Isi kata sandi" : "Kosongkan jika tidak diubah"}
                 autoComplete="new-password"
                 fullWidth
+                required={idEdit === null}
               />
               <FormHelperText sx={{ margin: 0 }}>
+                {idEdit === null ? "Wajib diisi untuk pengguna baru." : "Biarkan kosong jika tidak ingin mengubah kata sandi."}
               </FormHelperText>
             </Field>
           </Box>
@@ -1082,13 +1089,23 @@ export default function PenggunaPage() {
 
     const nama = form.nama.trim();
     const username = form.username.trim();
+    const divisi = form.divisi.trim();
+    const sandi = form.sandi.trim();
 
     if (!nama) {
       setPesanError("Nama lengkap wajib diisi.");
       return;
     }
+    if (!divisi) {
+      setPesanError("Divisi wajib diisi.");
+      return;
+    }
     if (!username) {
       setPesanError("Username wajib diisi.");
+      return;
+    }
+    if (!sandi && idEdit === null) {
+      setPesanError("Kata sandi wajib diisi.");
       return;
     }
     const usernameTerpakai = daftarPengguna.some(
@@ -1173,6 +1190,7 @@ export default function PenggunaPage() {
             opsiPeran={opsiPeran}
             adminSedangDiedit={adminSedangDiedit}
             pesanError={pesanError}
+            idEdit={idEdit}
           />
         )}
 
