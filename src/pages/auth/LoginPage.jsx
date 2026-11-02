@@ -315,18 +315,19 @@ export default function LoginPage({ onLoginSuccess }) {
   const [username, setUsername] = useState(() => ambilUsernameTersimpan());
   const [password, setPassword] = useState("");
   const [ingatSaya, setIngatSaya] = useState(() => ambilUsernameTersimpan() !== "");
-  const [pesan, setPesan] = useState("");
+  const [pesan, setPesan] = useState([]);
   const navigate = useNavigate();
   const { login } = useAuth();
 
   function handleLogin(e) {
     e.preventDefault();
 
-    if (!username.trim() || !password) {
-      setPesan("Username dan password wajib diisi.");
+    const validasi = [];
+    if (!username.trim()) validasi.push("Username wajib diisi");
+    if (!password) validasi.push("Password wajib diisi");
+    if (validasi.length) {
+      setPesan(validasi);
       return;
-
-  
     }
 
 
@@ -588,7 +589,7 @@ export default function LoginPage({ onLoginSuccess }) {
               </Typography>
             </Box>
 
-            <Box component="form" onSubmit={handleLogin} sx={{ display: "flex", flexDirection: "column" }}>
+            <Box component="form" noValidate onSubmit={handleLogin} sx={{ display: "flex", flexDirection: "column" }}>
               <Typography component="label" htmlFor="username" sx={gayaLabel}>
                 Username
               </Typography>
@@ -601,7 +602,7 @@ export default function LoginPage({ onLoginSuccess }) {
                 value={username}
                 onChange={(e) => {
                   setUsername(e.target.value);
-                  setPesan("");
+                  setPesan([]);
                 }}
                 required
                 fullWidth
@@ -625,7 +626,7 @@ export default function LoginPage({ onLoginSuccess }) {
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
-                  setPesan("");
+                  setPesan([]);
                 }}
                 required
                 fullWidth
@@ -643,7 +644,7 @@ export default function LoginPage({ onLoginSuccess }) {
                     checked={ingatSaya}
                     onChange={(e) => {
                       setIngatSaya(e.target.checked);
-                      setPesan("");
+                      setPesan([]);
                     }}
                     size="small"
                     sx={{
@@ -698,11 +699,11 @@ export default function LoginPage({ onLoginSuccess }) {
               </Button>
             </Box>
 
-            {pesan && (
-              <Typography component="p" role="status">
-                {pesan}
+            {pesan.map((item) => (
+              <Typography key={item} component="p" role="status">
+                {item}
               </Typography>
-            )}
+            ))}
 
             <Box
               component="footer"
