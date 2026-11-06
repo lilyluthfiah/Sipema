@@ -23,6 +23,8 @@ import DashboardKaryawan from "./pages/karyawan/DashboardKaryawan";
 import BerandaKaryawan from "./pages/karyawan/BerandaKaryawan";
 import JadwalMeetingKaryawan from "./pages/karyawan/JadwalMeetingKaryawan";
 import DetailMeetingKaryawan from "./pages/karyawan/DetailMeetingKaryawan";
+import TindakLanjutKaryawan from "./pages/karyawan/TindakLanjutKaryawan";
+import DetailTindakLanjutKaryawan from "./pages/karyawan/DetailTindakLanjutKaryawan";
 
 /* ========================================
    ROUTING SIPEMA
@@ -44,6 +46,8 @@ import DetailMeetingKaryawan from "./pages/karyawan/DetailMeetingKaryawan";
    - /karyawan/beranda
      - /karyawan/meeting
      - /karyawan/meeting/:id  (detail meeting karyawan, read-only)
+     - /karyawan/tindak-lanjut
+     - /karyawan/tindak-lanjut/:id  (detail & update tindak lanjut karyawan)
    ======================================== */
 
 function App() {
@@ -105,6 +109,8 @@ function App() {
             <Route path="beranda" element={<BerandaKaryawan />} />
             <Route path="meeting" element={<JadwalMeetingKaryawan />} />
             <Route path="meeting/:id" element={<DetailMeetingKaryawan />} />
+            <Route path="tindak-lanjut" element={<TindakLanjutKaryawan />} />
+            <Route path="tindak-lanjut/:id" element={<DetailTindakLanjutKaryawan />} />
             <Route path="*" element={<Navigate to={ruteKaryawan.beranda} replace />} />
           </Route>
 
